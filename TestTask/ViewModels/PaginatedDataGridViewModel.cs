@@ -89,7 +89,6 @@ namespace TestTask.ViewModels
             GoToPreviousPageCommand = ReactiveCommand.Create(() => GoToPage(_currentPage - 1), this.WhenAnyValue(vm => vm.CanGoPrevious));
             GoToNextPageCommand = ReactiveCommand.Create(() => GoToPage(_currentPage + 1), this.WhenAnyValue(vm => vm.CanGoNext));
             GoToLastPageCommand = ReactiveCommand.Create(() => GoToPage(TotalPages));
-            GenerateTradeHistory();
         }
 
         private void GenerateTradeHistory()

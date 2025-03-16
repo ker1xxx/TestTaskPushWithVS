@@ -12,14 +12,19 @@
 			<ColumnDefinition/>
 			<ColumnDefinition/>
 		</Grid.ColumnDefinitions>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="8*"/>
+			<RowDefinition/>
+		</Grid.RowDefinitions>
 
 		<DataGrid Grid.ColumnSpan="3"
                   ItemsSource="{Binding PagedData}"
                   AutoGenerateColumns="True" IsReadOnly="True"
                   GridLinesVisibility="All"
-                  BorderThickness="1" BorderBrush="Gray"/>
+                  BorderThickness="1" BorderBrush="Gray"
+				  Grid.Row="0"/>
 
-		<StackPanel HorizontalAlignment="Center" Grid.Column="1" VerticalAlignment="Bottom">
+		<StackPanel Grid.Row="1" HorizontalAlignment="Center" Grid.Column="1" VerticalAlignment="Bottom">
 			<StackPanel Orientation="Horizontal">
 				<Button Command="{Binding GoToFirstPageCommand}" IsEnabled="{Binding CanGoPrevious}" Content="First"/>
 				<Button Command="{Binding GoToPreviousPageCommand}" IsEnabled="{Binding CanGoPrevious}" Content="Previous"/>
@@ -42,8 +47,7 @@
 			</StackPanel>
 		</StackPanel>
 
-		<!-- Поля для изменения параметров -->
-		<TextBox Grid.Column="0" VerticalAlignment="Bottom" Watermark="Rows per page" Text="{Binding PageSize, Mode=TwoWay}"/>
-		<TextBox Grid.Column="2" VerticalAlignment="Bottom" Watermark="Pagination buttons" Text="{Binding NumPageButtons, Mode=TwoWay}"/>
+		<TextBox  Grid.Row="1" Grid.Column="0" VerticalAlignment="Bottom" Watermark="Rows per page" Text="{Binding PageSize, Mode=TwoWay}"/>
+		<TextBox  Grid.Row="1" Grid.Column="2" VerticalAlignment="Bottom" Watermark="Pagination buttons" Text="{Binding NumPageButtons, Mode=TwoWay}"/>
 	</Grid>
 </UserControl>
