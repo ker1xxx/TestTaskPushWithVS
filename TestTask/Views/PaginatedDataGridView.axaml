@@ -1,0 +1,49 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:TestTask.ViewModels;assembly=TestTask"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="TestTask.PaginatedDataGridView"
+             x:DataType="vm:PaginatedDataGridViewModel">
+	<Grid>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition/>
+			<ColumnDefinition/>
+			<ColumnDefinition/>
+		</Grid.ColumnDefinitions>
+
+		<DataGrid Grid.ColumnSpan="3"
+                  ItemsSource="{Binding PagedData}"
+                  AutoGenerateColumns="True" IsReadOnly="True"
+                  GridLinesVisibility="All"
+                  BorderThickness="1" BorderBrush="Gray"/>
+
+		<StackPanel HorizontalAlignment="Center" Grid.Column="1" VerticalAlignment="Bottom">
+			<StackPanel Orientation="Horizontal">
+				<Button Command="{Binding GoToFirstPageCommand}" IsEnabled="{Binding CanGoPrevious}" Content="First"/>
+				<Button Command="{Binding GoToPreviousPageCommand}" IsEnabled="{Binding CanGoPrevious}" Content="Previous"/>
+				<ItemsControl ItemsSource="{Binding PageNumbers}">
+					<ItemsControl.ItemsPanel>
+						<ItemsPanelTemplate>
+							<StackPanel Orientation="Horizontal"/>
+						</ItemsPanelTemplate>
+					</ItemsControl.ItemsPanel>
+					<ItemsControl.ItemTemplate>
+						<DataTemplate>
+							<Button Command="{Binding DataContext.GoToPageCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                    CommandParameter="{Binding PageNumber}" Content="{Binding PageNumber}"
+                                    IsEnabled="{Binding CanGoToPage}"/>
+						</DataTemplate>
+					</ItemsControl.ItemTemplate>
+				</ItemsControl>
+				<Button Command="{Binding GoToNextPageCommand}" IsEnabled="{Binding CanGoNext}" Content="Next"/>
+				<Button Command="{Binding GoToLastPageCommand}" IsEnabled="{Binding CanGoNext}" Content="Last"/>
+			</StackPanel>
+		</StackPanel>
+
+		<!-- Поля для изменения параметров -->
+		<TextBox Grid.Column="0" VerticalAlignment="Bottom" Watermark="Rows per page" Text="{Binding PageSize, Mode=TwoWay}"/>
+		<TextBox Grid.Column="2" VerticalAlignment="Bottom" Watermark="Pagination buttons" Text="{Binding NumPageButtons, Mode=TwoWay}"/>
+	</Grid>
+</UserControl>
